@@ -4,6 +4,8 @@ from flask import (Flask,
                    request)
 from utils.helper import setup_logger
 import logging
+from post import process_mcco_post
+from delete import process_mcco_deletion
 __status__ = "development"
 
 log_level = logging.DEBUG if __status__ == "development" else logging.INFO
@@ -23,10 +25,16 @@ def mc_co():
     if request.method == 'POST':
         main_logger.info("mc_co endpoint received POST request.")
         received_data = request.get_json()
-
-        main_logger.debug(f"Received data: {received_data}")
+        process_mcco_post(received_data)
         return jsonify({"message": "Data received", "data": received_data}), 200
     
     elif request.method == 'GET':
         main_logger.info("mc_co endpoint received GET request.")
-        return jsonify({"message": "mc_co GET endpoint"}), 200
+        with open('status/mcco_post_status.json', 'r') as f:
+            status_file = json.load(f)
+        return status_file, 200
+    
+    elif request.method == 'DELETE':
+        main_logger.info("mc_co endpoint received DELETE request.")
+        process_mcco_deletion(request.get_json())
+        return jsonify({"message": "Status file reset"}), 200
