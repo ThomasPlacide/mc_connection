@@ -1,5 +1,5 @@
 import json
-
+from datetime import datetime
 def process_mcco_post(received_data):
 
     with open('status/mcco_post_status.json', 'r') as f:
@@ -12,7 +12,10 @@ def process_mcco_post(received_data):
                 "ID": ID,
                 "username": username
             })
-        
+        status_file[world_id]["last_update"] = received_data.get('timestamp', datetime.now().isoformat())
+
+    with open('status/mcco_post_status.json', 'w') as f:
+        json.dump(status_file, f, indent=4)
 
     
 

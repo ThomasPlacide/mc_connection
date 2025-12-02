@@ -15,7 +15,7 @@ def status():
     main_logger.info("Status endpoint was called.")
     return jsonify({"status": "connected"}), 200
 
-@app.route('/mc_co', methods=['GET', 'POST'])
+@app.route('/mc_co', methods=['GET', 'POST', 'DELETE'])
 def mc_co():
     """
     Endpoint to handle mc_co related requests.
