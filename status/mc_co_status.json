@@ -1,0 +1,17 @@
+{
+    "worlds": {
+        "ex_ID": {
+            "IDs_connected": [
+                {
+                    "ID": "example_player_1_ID",
+                    "username": "ExamplePlayer1"
+                },
+                {
+                    "ID": "example_player_2_ID",
+                    "username": "ExamplePlayer2"
+                }
+            ],
+            "last_updated": "2024-06-15T12:34:56Z"
+        }
+    }
+}
