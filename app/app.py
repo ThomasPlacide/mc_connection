@@ -48,3 +48,11 @@ def mc_co():
     
 def test_client():
     return app.test_client()
+
+if __name__ == '__main__':
+    if __status__ == "development":
+        main_logger.debug("Starting Flask app in development mode.")
+        app.run(host='0.0.0.0', port=5001, debug=True)
+    else:
+        main_logger.info("Starting Flask app in production mode.")
+        app.run(host='0.0.0.0', port=5000)
