@@ -1,1 +1,6 @@
 .*/
+test*/
+.DS_Store
+__*__/
+logs/
+mcco_*.json

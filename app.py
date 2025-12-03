@@ -2,14 +2,16 @@ import json
 from flask import (Flask,
                    jsonify,
                    request)
-from utils.helper import setup_logger
+from utils.helper import Logger
 import logging
-from post import process_mcco_post
-from delete import process_mcco_deletion
+from src.post import process_mcco_post
+from src.delete import process_mcco_deletion
+from src.get import process_mcco_get
+
 __status__ = "development"
 
 log_level = logging.DEBUG if __status__ == "development" else logging.INFO
-main_logger = setup_logger(__name__, "log/connected_app.log",
+main_logger = Logger.setup_logger(__name__, "logs/connected_app.log",
                            level=log_level)
 app = Flask(__name__)
 @app.route('/status', methods=['GET'])
@@ -30,11 +32,15 @@ def mc_co():
     
     elif request.method == 'GET':
         main_logger.info("mc_co endpoint received GET request.")
-        with open('status/mcco_post_status.json', 'r') as f:
-            status_file = json.load(f)
-        return status_file, 200
-    
+        received_data = request.get_json()
+        worlds_summary = process_mcco_get(received_data)
+        return jsonify(worlds_summary), 200
+                
     elif request.method == 'DELETE':
         main_logger.info("mc_co endpoint received DELETE request.")
-        process_mcco_deletion(request.get_json())
+        received_data = request.get_json()
+        process_mcco_deletion(received_data)
         return jsonify({"message": "Status file reset"}), 200
+    
+def test_client():
+    return app.test_client()

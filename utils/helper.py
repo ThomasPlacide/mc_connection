@@ -2,7 +2,7 @@ import logging
 
 class Logger:
     @staticmethod
-    def setup_logger(name, log_file: str = "app.log", level=logging.INFO):
+    def setup_logger(name, log_file: str = "logs/app.log", level=logging.INFO):
         logger = logging.getLogger(name)
         logger.setLevel(level)
         
@@ -13,7 +13,7 @@ class Logger:
             ch.setFormatter(formatter)
             logger.addHandler(ch)
 
-            fh = logging.FileHandler(log_file)
+            fh = logging.FileHandler(log_file, mode="a+")
             fh.setLevel(level)
             fh.setFormatter(formatter)
             logger.addHandler(fh)
