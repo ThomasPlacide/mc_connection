@@ -1,12 +1,16 @@
 import json
+import os
 from datetime import datetime
 from utils.helper import Logger
 import logging
-logger = Logger.setup_logger(__name__, "logs/mcco_get.log", level=logging.DEBUG)
+
+LOG_PATH = os.getenv("LOG_PATH", "logs")
+STATUS_FILE = os.getenv("STATUS_FILE", "status/mcco_post_status.json")
+logger = Logger.setup_logger(__name__, f"{LOG_PATH}/mcco_get.log", level=logging.DEBUG)
 
 def process_mcco_get(received_data):
 
-    with open('status/mcco_post_status.json', 'r+') as f:
+    with open(STATUS_FILE, 'r+') as f:
             status_file = json.load(f)
     
     if received_data:

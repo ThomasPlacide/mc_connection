@@ -1,14 +1,18 @@
 import json
+import os
 from datetime import datetime
 from utils.helper import Logger
 import logging
-logger = Logger.setup_logger(__name__, "logs/mcco_post.log", level=logging.DEBUG)
+
+LOG_PATH = os.getenv("LOG_PATH", "logs")
+STATUS_FILE = os.getenv("STATUS_FILE", "status/mcco_post_status.json")
+logger = Logger.setup_logger(__name__, f"{LOG_PATH}/mcco_post.log", level=logging.DEBUG)
 
 def process_mcco_post(received_data):
 
     if _is_status_file_empty():
         logger.info("Status file is empty. Initializing new structure.")
-    with open('status/mcco_post_status.json', 'r+') as f:
+    with open(STATUS_FILE, 'r+') as f:
         status_file = json.load(f)
         logger.debug(f"Current status file content: {status_file}")
     
@@ -25,17 +29,17 @@ def process_mcco_post(received_data):
     status_file['worlds'][world_id]["last_update"] = received_data.get('timestamp', datetime.now().isoformat())
     logger.debug(f"Initialized new world entry: {status_file['worlds'][world_id]}")
 
-    with open('status/mcco_post_status.json', 'w') as f:
+    with open(STATUS_FILE, 'w') as f:
         json.dump(status_file, f, indent=4)
 
 def _is_status_file_empty():
     logger.debug("Checking if status file is empty.")
-    with open('status/mcco_post_status.json', 'r+') as f:
+    with open(STATUS_FILE, 'r+') as f:
         status_file = json.load(f)
     if not bool(status_file.get('worlds', False)):
         status_file = { "worlds": {} }
         logger.debug("Resetting status file to initial empty structure.")
-        with open('status/mcco_post_status.json', 'w+') as f:
+        with open(STATUS_FILE, 'w+') as f:
             json.dump(status_file, f, indent=4)
             logger.debug(f"Status file after reset: {status_file}")
         return True

@@ -1,7 +1,7 @@
-import json
 from flask import (Flask,
                    jsonify,
                    request)
+import os
 from utils.helper import Logger
 import logging
 from src.post import process_mcco_post
@@ -10,8 +10,9 @@ from src.get import process_mcco_get
 
 __status__ = "development"
 
+LOG_PATH = os.getenv("LOG_PATH", "logs")
 log_level = logging.DEBUG if __status__ == "development" else logging.INFO
-main_logger = Logger.setup_logger(__name__, "logs/connected_app.log",
+main_logger = Logger.setup_logger(__name__, f"{LOG_PATH}/connected_app.log",
                            level=log_level)
 app = Flask(__name__)
 @app.route('/status', methods=['GET'])
