@@ -2,11 +2,10 @@ from flask import (Flask,
                    jsonify,
                    request)
 import os
+from dotenv import load_dotenv
 from utils.helper import Logger
 import logging
-from src.post import process_mcco_post
-from src.delete import process_mcco_deletion
-from src.get import process_mcco_get
+load_dotenv('cfg/.env')
 
 __status__ = "development"
 
@@ -25,6 +24,10 @@ def mc_co():
     """
     Endpoint to handle mc_co related requests.
     """
+    from src.post import process_mcco_post
+    from src.delete import process_mcco_deletion
+    from src.get import process_mcco_get
+
     if request.method == 'POST':
         main_logger.info("mc_co endpoint received POST request.")
         received_data = request.get_json()
