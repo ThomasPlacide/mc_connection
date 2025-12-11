@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mcco_app
+  labels:
+    app: mcco_app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mcco_app
+  template:
+    metadata:
+      labels:
+        app: mcco_app
+    spec:
+      containers:
+      - name: mcco_app
+        image: mcco_app_image:latest

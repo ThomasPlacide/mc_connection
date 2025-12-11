@@ -5,4 +5,5 @@ RUN pip install -r requirements.txt
 COPY . .
 RUN mkdir -p /app/logs /app/status
 EXPOSE 5000
-CMD ["python3", "-m", "app.app"]
+WORKDIR /app/app
+CMD ["python3", "app.py"]
