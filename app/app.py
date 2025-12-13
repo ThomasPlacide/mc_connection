@@ -9,9 +9,13 @@ load_dotenv('cfg/.env')
 
 __status__ = os.getenv("APP_ENV", "development")
 LOG_PATH = os.getenv("LOG_PATH", "/app/logs")
-log_level = logging.DEBUG if __status__ == "development" else logging.INFO
+PORT = int(os.getenv("PORT", 5000))
+LOG_LEVEL = os.getenv("LOG_LEVEL", "info").upper()
+log_level = getattr(logging, LOG_LEVEL, logging.INFO)
+
 main_logger = Logger.setup_logger(__name__, f"{LOG_PATH}/connected_app.log",
                            level=log_level)
+
 app = Flask(__name__)
 @app.route('/status', methods=['GET'])
 def status():
@@ -49,9 +53,5 @@ def test_client():
     return app.test_client()
 
 if __name__ == '__main__':
-    if __status__ == "development":
-        main_logger.debug("Starting Flask app in development mode.")
-        app.run(host='0.0.0.0', port=5001, debug=True)
-    else:
-        main_logger.info("Starting Flask app in production mode.")
-        app.run(host='0.0.0.0', port=5000)
+    main_logger.info(f"Starting Flask app in {__status__} mode.")
+    app.run(host='0.0.0.0', port=PORT, debug=True if __status__ == "development" else False)
