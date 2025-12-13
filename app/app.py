@@ -7,9 +7,8 @@ from utils.helper import Logger
 import logging
 load_dotenv('cfg/.env')
 
-__status__ = "development"
-
-LOG_PATH = os.getenv("LOG_PATH", "logs")
+__status__ = os.getenv("APP_ENV", "development")
+LOG_PATH = os.getenv("LOG_PATH", "/app/logs")
 log_level = logging.DEBUG if __status__ == "development" else logging.INFO
 main_logger = Logger.setup_logger(__name__, f"{LOG_PATH}/connected_app.log",
                            level=log_level)

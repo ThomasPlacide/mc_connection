@@ -16,4 +16,20 @@ spec:
     spec:
       containers:
       - name: mcco_app
-        image: mcco_app_image:latest
+        image: mcco_connected:latest
+        envFrom:
+        - configMapRef:
+            name: mcco-app-config
+        volumeMounts:
+        - name: app-logs
+          mountPath: /app/logs
+        - name: app-status
+          mountPath: /app/status
+        
+      volumes:
+      - name: app-logs
+        persistentVolumeClaim:
+          claimName: app-logs-pvc
+      - name: app-status
+        persistentVolumeClaim:
+          claimName: app-status-pvc
