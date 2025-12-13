@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: mcco-app
-        image: docker.io/thmsplcd293/mcco_connected:flask_app:latest
+        image: docker.io/thmsplcd293/mcco_connected:flask_app
         envFrom:
         - configMapRef:
             name: mcco-app-config
