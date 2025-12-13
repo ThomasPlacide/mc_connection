@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mcco-app_service
+  name: mcco-app-service
   labels:
     app: mcco-app
 spec:
