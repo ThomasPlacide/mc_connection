@@ -5,3 +5,4 @@ test*/
 __*__/
 logs/
 mcco_*.json
+!testings/

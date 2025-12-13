@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mcco-app-config
+  namespace: development
+data:
+  APP_ENV: "development"
+  LOG_LEVEL: "debug"
+  LOG_PATH: "/app/logs/"
+  PORT: "5000"
+  
