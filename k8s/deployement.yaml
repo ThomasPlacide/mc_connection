@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mcco_app
+  name: mcco-app
   labels:
-    app: mcco_app
+    app: mcco-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mcco_app
+      app: mcco-app
   template:
     metadata:
       labels:
-        app: mcco_app
+        app: mcco-app
     spec:
       containers:
-      - name: mcco_app
+      - name: mcco-app
         image: mcco_connected:latest
         envFrom:
         - configMapRef:
