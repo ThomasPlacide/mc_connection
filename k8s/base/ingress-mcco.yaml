@@ -1,5 +1,5 @@
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
   name: mcco-ingress
   annotations:
@@ -7,11 +7,13 @@ metadata:
     traefik.frontend.passHostHeader: "true"
     treafik.backend.loadbalancer.stickiness: "true"
 spec:
-  entryPoints:
-  - http
-  routes:
-  - kind: Rule
-    match: Host(`minecraft-server.com`) && PathPrefix(`/mcco`)
-    services:
-    - name: mcco-app-service
-      port: 5000
+  rules:
+  - host: minecraft-server.com
+    http:
+      paths:
+        - path: /mcco
+          backend:
+            service:
+              name: mcco-app-service
+              port:
+                number: 5000
