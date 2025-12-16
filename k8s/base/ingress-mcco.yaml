@@ -11,7 +11,7 @@ spec:
   - host: minecraft-server.com
     http:
       paths:
-        - path: /mcco
+        - path: /
           pathType: Prefix
           backend:
             service:
