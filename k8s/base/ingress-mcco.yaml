@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: mcco-ingress
   annotations:
-    kubernetes.io/ingress.class: "traefik"
+    spec.ingressClassName: "traefik"
     traefik.frontend.passHostHeader: "true"
     treafik.backend.loadbalancer.stickiness: "true"
 spec:
