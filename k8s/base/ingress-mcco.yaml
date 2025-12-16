@@ -13,5 +13,5 @@ spec:
       paths:
         - path: /mcco
           backend:
-          serviceName: mcco-app-service
-          servicePort: 5000
+            serviceName: mcco-app-service
+            servicePort: 5000
