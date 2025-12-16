@@ -11,7 +11,7 @@ spec:
   - host: minecraft-server.com
     http:
       paths:
-      - path: /mcco
-        backend:
+        - path: /mcco
+          backend:
           serviceName: mcco-app-service
           servicePort: 5000

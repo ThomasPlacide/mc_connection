@@ -25,7 +25,6 @@ spec:
           mountPath: /app/logs
         - name: app-status
           mountPath: /app/status
-        namespace: minecraft
         
       volumes:
       - name: app-logs
