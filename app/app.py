@@ -22,29 +22,29 @@ def status():
     main_logger.info("Status endpoint was called.")
     return jsonify({"status": "connected"}), 200
 
-@app.route('/mc_co', methods=['GET', 'POST', 'DELETE'])
-def mc_co():
+@app.route('/mcco', methods=['GET', 'POST', 'DELETE'])
+def mcco():
     """
-    Endpoint to handle mc_co related requests.
+    Endpoint to handle mcco related requests.
     """
     from src.post import process_mcco_post
     from src.delete import process_mcco_deletion
     from src.get import process_mcco_get
 
     if request.method == 'POST':
-        main_logger.info("mc_co endpoint received POST request.")
+        main_logger.info("mcco endpoint received POST request.")
         received_data = request.get_json()
         process_mcco_post(received_data)
         return jsonify({"message": "Data received", "data": received_data}), 200
     
     elif request.method == 'GET':
-        main_logger.info("mc_co endpoint received GET request.")
+        main_logger.info("mcco endpoint received GET request.")
         received_data = request.get_json()
         worlds_summary = process_mcco_get(received_data)
         return jsonify(worlds_summary), 200
                 
     elif request.method == 'DELETE':
-        main_logger.info("mc_co endpoint received DELETE request.")
+        main_logger.info("mcco endpoint received DELETE request.")
         received_data = request.get_json()
         process_mcco_deletion(received_data)
         return jsonify({"message": "Status file reset"}), 200
