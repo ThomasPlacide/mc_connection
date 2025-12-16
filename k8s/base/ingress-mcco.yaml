@@ -12,6 +12,7 @@ spec:
     http:
       paths:
         - path: /mcco
+          pathType: Prefix
           backend:
             service:
               name: mcco-app-service
