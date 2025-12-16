@@ -5,6 +5,9 @@ import os
 from dotenv import load_dotenv
 from utils.helper import Logger
 import logging
+from src.post import process_mcco_post
+from src.delete import process_mcco_deletion
+from src.get import process_mcco_get
 load_dotenv('cfg/.env')
 
 __status__ = os.getenv("APP_ENV", "development")
@@ -27,9 +30,6 @@ def mcco():
     """
     Endpoint to handle mcco related requests.
     """
-    from src.post import process_mcco_post
-    from src.delete import process_mcco_deletion
-    from src.get import process_mcco_get
 
     if request.method == 'POST':
         main_logger.info("mcco endpoint received POST request.")
