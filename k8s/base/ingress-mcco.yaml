@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mcco-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    traefik.frontend.passHostHeader: "true"
+    treafik.backend.loadbalancer.stickiness: "true"
+spec:
+  rules:
+  - host: gbe.ovh
+    http:
+      paths:
+      - path: /mcco
+        backend:
+          serviceName: mcco-app-service
+          servicePort: 5000
