@@ -5,9 +5,6 @@ import os
 from dotenv import load_dotenv
 from utils.helper import Logger
 import logging
-from src.post import process_mcco_post
-from src.delete import process_mcco_deletion
-from src.get import process_mcco_get
 load_dotenv('cfg/.env')
 
 __status__ = os.getenv("APP_ENV", "development")
@@ -18,6 +15,11 @@ log_level = getattr(logging, LOG_LEVEL, logging.INFO)
 
 main_logger = Logger.setup_logger(__name__, f"{LOG_PATH}/connected_app.log",
                            level=log_level)
+
+main_logger.info("="*50)
+main_logger.info(f"Application starting in {__status__} mode.")
+main_logger.info(f"Current working directory: {os.getcwd()}")
+main_logger.info("="*50)
 
 app = Flask(__name__)
 @app.route('/status', methods=['GET'])
@@ -30,6 +32,13 @@ def mcco():
     """
     Endpoint to handle mcco related requests.
     """
+    try:
+        from src.post import process_mcco_post
+        from src.delete import process_mcco_deletion
+        from src.get import process_mcco_get
+    except ImportError as e:
+        main_logger.error(f"Error importing modules: {e}")
+        return jsonify({"error": "Internal server error"}), 500
 
     if request.method == 'POST':
         main_logger.info("mcco endpoint received POST request.")
