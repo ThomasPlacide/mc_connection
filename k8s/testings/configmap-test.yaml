@@ -7,5 +7,6 @@ data:
   APP_ENV: "development"
   LOG_LEVEL: "debug"
   LOG_PATH: "/app/logs/"
+  STATUS_FILE: "/app/status/mcco_post_status.json"
   PORT: "5000"
   

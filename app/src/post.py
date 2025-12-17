@@ -10,12 +10,16 @@ logger = Logger.setup_logger(__name__, f"{LOG_PATH}/mcco_post.log", level=loggin
 
 def process_mcco_post(received_data):
 
-    if _is_status_file_empty():
-        logger.info("Status file is empty. Initializing new structure.")
-    with open(STATUS_FILE, 'a+') as f:
-        status_file = json.load(f)
-        logger.debug(f"Current status file content: {status_file}")
+    try:
+        with open(STATUS_FILE, 'r') as f:
+            content = f.read()
+            status_file = json.loads(content) if content.strip() else {"worlds": {}}
+    except FileNotFoundError:
+        os.makedirs(os.path.dirname(STATUS_FILE), exist_ok=True)
+        status_file = {"worlds": {}}
+        logger.info("Status file not found. Initialized new structure.")
     
+    logger.debug(f"Current status file content: {status_file}")
     logger.debug(f"Received data for processing: {received_data}")
 
     world_id = received_data.get('world_ID')
@@ -31,16 +35,3 @@ def process_mcco_post(received_data):
 
     with open(STATUS_FILE, 'w') as f:
         json.dump(status_file, f, indent=4)
-
-def _is_status_file_empty():
-    logger.debug("Checking if status file is empty.")
-    with open(STATUS_FILE, 'a+') as f:
-        status_file = json.load(f)
-    if not bool(status_file.get('worlds', False)):
-        status_file = { "worlds": {} }
-        logger.debug("Resetting status file to initial empty structure.")
-        with open(STATUS_FILE, 'w+') as f:
-            json.dump(status_file, f, indent=4)
-            logger.debug(f"Status file after reset: {status_file}")
-        return True
-    return False
