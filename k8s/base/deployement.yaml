@@ -17,6 +17,7 @@ spec:
       containers:
       - name: mcco-app
         image: docker.io/thmsplcd293/mcco_connected:flask_app
+        imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: mcco-app-config
