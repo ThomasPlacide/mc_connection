@@ -12,7 +12,7 @@ def process_mcco_post(received_data):
 
     if _is_status_file_empty():
         logger.info("Status file is empty. Initializing new structure.")
-    with open(STATUS_FILE, 'r+') as f:
+    with open(STATUS_FILE, 'a+') as f:
         status_file = json.load(f)
         logger.debug(f"Current status file content: {status_file}")
     
@@ -34,7 +34,7 @@ def process_mcco_post(received_data):
 
 def _is_status_file_empty():
     logger.debug("Checking if status file is empty.")
-    with open(STATUS_FILE, 'r+') as f:
+    with open(STATUS_FILE, 'a+') as f:
         status_file = json.load(f)
     if not bool(status_file.get('worlds', False)):
         status_file = { "worlds": {} }
