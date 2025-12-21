@@ -8,7 +8,7 @@ metadata:
     treafik.backend.loadbalancer.stickiness: "true"
 spec:
   rules:
-  - host: minecraft-server.com
+  - host: mcco.gbe.ovh
     http:
       paths:
         - path: /
