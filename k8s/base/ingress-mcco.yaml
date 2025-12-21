@@ -11,7 +11,7 @@ spec:
   - host: mcco.gbe.ovh
     http:
       paths:
-        - path: /mcco
+        - path: /
           pathType: Prefix
           backend:
             service:
