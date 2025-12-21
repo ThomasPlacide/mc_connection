@@ -20,7 +20,7 @@ def process_mcco_get(received_data):
             last_update = status_file['worlds'][world_id].get("last_update", datetime.now().isoformat())
             return {"connected": connected, "last_update": last_update}
     else:
-        worlds_summary = dict('worlds', {"world_ID": { "connected": 0, "last_update": "" }})
+        worlds_summary = {'worlds': {"world_ID": { "connected": 0, "last_update": "" }}}
         for world_id, world_data in status_file.get('worlds', {}).items():
             connected = len(world_data.get("IDs_connected", {}))
             last_update = world_data.get("last_update", "")
