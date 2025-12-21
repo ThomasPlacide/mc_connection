@@ -48,8 +48,7 @@ def mcco():
     
     elif request.method == 'GET':
         main_logger.info("mcco endpoint received GET request.")
-        received_data = request.get_json()
-        worlds_summary = process_mcco_get(received_data)
+        worlds_summary = process_mcco_get()
         return jsonify(worlds_summary), 200
                 
     elif request.method == 'DELETE':
